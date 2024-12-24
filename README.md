@@ -1,4 +1,3 @@
-# Fitness Tracker using python
 # Fitness Tracker Project
 
 ## Table of Contents
@@ -61,6 +60,7 @@ Follow these steps to set up the project on your local machine:
      flask db upgrade
      ```
 
+
 5. **Run the Application:**
    ```bash
    flask run
@@ -69,9 +69,17 @@ Follow these steps to set up the project on your local machine:
 
 ## Usage
 1. **Home Page:** View the dashboard with an overview of your fitness goals and progress.
-2. **BMI Calculator:** Navigate to the BMI calculator page, enter your details, and get your BMI result.
-3. **Exercise Recommendations:** Receive tailored exercise suggestions based on your BMI.
-4. **Track Workouts:** Log your daily activities, view past records, and monitor progress.
+2. ![image](https://github.com/user-attachments/assets/90155519-3fed-40ee-9b47-30297fedd98d)
+
+3. **BMI Calculator:** Navigate to the BMI calculator page, enter your details, and get your BMI result.
+4. ![image](https://github.com/user-attachments/assets/2e50c6e1-8ae5-469b-a88a-702b5459debc)
+
+5. **Exercise Recommendations:** Receive tailored exercise suggestions based on your BMI.
+6. ![image](https://github.com/user-attachments/assets/d609c944-18cd-4b01-b22e-0e44cf1f4ed2)
+
+7. **Track Workouts:** Log your daily activities, view past records, and monitor progress.
+8. ![image](https://github.com/user-attachments/assets/7c6c01d0-5f44-49d7-a1cc-a81fd5767c8f)
+
 
 ## Contributing
 Contributions are welcome! Follow these steps to contribute:
