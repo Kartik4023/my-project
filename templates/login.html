@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: rgb(255, 255, 255);
+            padding: 50px;
+            box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: large;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .register-text {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        .welcome-message {
+            display: none;
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-top: 50px;
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-section">
+        <div class="login-container">
+            <h2>Login</h2>
+            <form method="POST" action="{{ url_for('login') }}">
+                <!-- Include the CSRF token -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">password</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="register-text">
+                <p>Don't have an account? <a href="{{ url_for('register') }}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

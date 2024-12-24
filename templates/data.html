@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: rgb(28, 139, 173);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .data-label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .back-item {
+            background-color: rgb(26, 11, 11);
+            color: white;
+            list-style-type: none;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .workout-set {
+            margin-bottom: 20px;
+        }
+
+        .delete-button {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #e53935;
+        }
+
+        .delete-button:active {
+            background-color: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{{ url_for('workout') }}" class="back-item">Back</a>
+
+    <h1>Workout Summary</h1>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+    {% if workouts %}
+    {% for workout in workouts %}
+    <div class="container workout-set">
+        <p><span class="data-label">Workout Date:</span> {{ workout.date }}</p>
+        <p><span class="data-label">Body Part:</span> {{ workout.body_part }}</p>
+        <p><span class="data-label">Exercise:</span> {{ workout.exercise }}</p>
+        <p><span class="data-label">Weight:</span> {{ workout.weight }} lbs</p>
+        <p><span class="data-label">Reps:</span> {{ workout.reps }} reps</p>
+        {% if workout.notes %}
+        <p><span class="data-label">Notes:</span> {{ workout.notes }}</p>
+        {% endif %}
+
+        <!-- Delete button with form -->
+        <form action="{{ url_for('delete_workout', workout_id=workout.id) }}" method="POST" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="delete-button">Delete</button>
+        </form>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No workout logged yet.</p>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+{
+    "user@example.com": {
+        "workouts": {
+            "2024-10-01": [
+                {
+                    "body_part": "chest",
+                    "exercise": "bench press",
+                    "weight": "200",
+                    "reps": "10",
+                    "notes": "Felt strong."
+                }
+            ],
+            "2024-10-02": [
+                {
+                    "body_part": "legs",
+                    "exercise": "squats",
+                    "weight": "150",
+                    "reps": "12",
+                    "notes": "Good form."
+                }
+            ]
+        }
+    }
+}

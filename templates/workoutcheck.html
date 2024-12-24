@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> BMI Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #00bcd4, #4dd0e1, #80deea);
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            color: #00796b;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-top: 15px;
+            display: block;
+            color: #333;
+            font-weight: 600;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 2px solid #80deea;
+            background-color: #f9f9f9;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #00bcd4;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00796b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #004d40;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #80deea;
+            color: #004d40;
+            font-size: 16px;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>BMI Calculator and Exercises suggestion </h2>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" placeholder="Enter your age" min="1" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+            <option value="">Select your gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" placeholder="Enter your weight" step="0.1" required>
+
+        <label for="height">Height:</label>
+        <input type="number" id="height" placeholder="Enter your height" step="0.01" required>
+        <select id="heightUnit">
+            <option value="meters">Meters</option>
+            <option value="feet">Feet</option>
+        </select>
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+
+        <div id="output" class="result" style="display: none;"></div>
+    </div>
+    <script>
+        function calculateBMI() {
+            const age = parseInt(document.getElementById('age').value);
+            const gender = document.getElementById('gender').value;
+            const weight = parseFloat(document.getElementById('weight').value);
+            let height = parseFloat(document.getElementById('height').value);
+            const heightUnit = document.getElementById('heightUnit').value;
+            const output = document.getElementById('output');
+
+            // Convert height from feet to meters if needed
+            if (heightUnit === 'feet') {
+                height = height * 0.3048; // Convert feet to meters
+            }
+
+            if (age > 0 && gender && weight > 0 && height > 0) {
+                const bmi = (weight / (height * height)).toFixed(2);
+                let category = '';
+                let exerciseSuggestion = '';
+
+                if (bmi < 18.5) {
+                    category = 'Underweight';
+                    exerciseSuggestion = `
+                    <ul>
+                        <li>Increase caloric intake with nutrient-dense foods</li>
+                        <li>Strength training 3-4 times per week to build muscle</li>
+                        <li>Engage in moderate cardio to boost endurance</li>
+                    </ul>`;
+                } else if (bmi >= 18.5 && bmi < 24.9) {
+                    category = 'Normal weight';
+                    exerciseSuggestion = `
+                    <ul>
+                        <li>Maintain regular cardio workouts (e.g., jogging, cycling)</li>
+                        <li>Incorporate strength training 2-3 times per week</li>
+                        <li>Add flexibility exercises like yoga or pilates</li>
+                    </ul>`;
+                } else if (bmi >= 25 && bmi < 29.9) {
+                    category = 'Overweight';
+                    exerciseSuggestion = `
+                    <ul>
+                        <li>Increase cardio activities 4-5 times a week</li>
+                        <li>Light strength training to improve muscle tone</li>
+                        <li>Focus on portion control and a balanced diet</li>
+                    </ul>`;
+                } else {
+                    category = 'Obese';
+                    exerciseSuggestion = `
+                    <ul>
+                        <li>Engage in low-impact cardio exercises (e.g., walking, swimming)</li>
+                        <li>Consult a healthcare professional for a personalized plan</li>
+                        <li>Focus on gradual, sustainable lifestyle changes</li>
+                    </ul>`;
+                }
+
+                output.style.display = 'block';
+                output.innerHTML = `
+                <strong>Age:</strong> ${age} <br>
+                <strong>Gender:</strong> ${gender.charAt(0).toUpperCase() + gender.slice(1)} <br>
+                <strong>Your BMI:</strong> ${bmi} (${category})<br>
+                <strong>Suggested Exercises:</strong> ${exerciseSuggestion}
+                `;
+            } else {
+                output.style.display = 'block';
+                output.innerHTML = 'Please fill in all fields correctly.';
+            }
+        }
+    </script>
+</body>
+
+</html>

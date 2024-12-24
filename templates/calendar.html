@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendar</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #72edf2 10%, #5151e5 100%);
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calendar-container {
+            width: 80%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            background-color: #ffffff;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .calendar-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .calendar-header a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .calendar-header a:hover {
+            background-color: #2980b9;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .day-name,
+        .day {
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f4f7;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .day-name {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        .day {
+            background-color: #ffffff;
+            color: #2c3e50;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .day:hover {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+
+        .day.today {
+            background-color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        .day a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .day a:hover {
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-container {
+                width: 95%;
+                max-width: 600px;
+            }
+
+            .calendar-header h2 {
+                font-size: 20px;
+            }
+
+            .calendar-header a {
+                font-size: 16px;
+            }
+
+            .day-name,
+            .day {
+                font-size: 16px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <a href="{{ url_for('calendar_view', year=prev_month[0], month=prev_month[1]) }}">&lt; Previous</a>
+            <h2>{{ calendar.month_name[month] }} {{ year }}</h2>
+            <a href="{{ url_for('calendar_view', year=next_month[0], month=next_month[1]) }}">Next &gt;</a>
+        </div>
+        <div class="calendar-grid">
+            <div class="day-name">Sun</div>
+            <div class="day-name">Mon</div>
+            <div class="day-name">Tue</div>
+            <div class="day-name">Wed</div>
+            <div class="day-name">Thu</div>
+            <div class="day-name">Fri</div>
+            <div class="day-name">Sat</div>
+            {% for day in days %}
+            <div class="day {% if day == today %}today{% endif %}">
+                {% if day %}
+                    <a href="{{ url_for('workout', date=day) }}">{{ day.day }}</a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+
+</html>
