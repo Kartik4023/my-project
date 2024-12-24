@@ -1,4 +1,1 @@
-# my-project
-This is my first github repository
-<br>
-my name is kartik
+Fitness Tracker using python
